@@ -1,9 +1,8 @@
 // This defines a simple class of critters that infect whenever they can and
-// otherwise just spin around, looking for critters to infect.  This simple
-// strategy turns out to be surpisingly successful.
+// otherwise spin around, looking for critters to infect.  This simple strategy
+// was surprisingly successful.
 
 import java.awt.*;
-
 public class FlyTrap extends Critter {
     public Action getMove(CritterInfo info) {
         if (info.getFront() == Neighbor.OTHER) {

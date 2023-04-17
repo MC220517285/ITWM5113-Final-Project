@@ -1,7 +1,7 @@
-
+// Import statement that brings in the entire awt package.
 import java.awt.*;
 
-//This is a class to determine how it should act, the colour and the string that represents NinjaCat
+// This is a class to determine how it should act, the colour and the string that represents NinjaCat.
 
 public class NinjaCat extends Critter{
     public Critter.Action getMove(CritterInfo info) {
@@ -33,7 +33,7 @@ public class NinjaCat extends Critter{
         }
     }
 
-    //Color.Magenta
+    // Color.Magenta
     public Color getColor() {
         return Color.MAGENTA;
     }

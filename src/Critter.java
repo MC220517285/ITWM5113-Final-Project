@@ -24,6 +24,7 @@
 //     public boolean leftThreat();           threatening critter to the left?
 //     public boolean rightThreat();          threatening critter to the right?
 
+// Import statement that brings in the entire awt package.
 import java.awt.*;
 
 public class Critter {
@@ -39,23 +40,22 @@ public class Critter {
         NORTH, SOUTH, EAST, WEST
     };
 
-    // This method should be overriden (default action is turning left)
+    // This method should be overridden (default action is turning left).
     public Action getMove(CritterInfo info) {
         return Action.LEFT;
     }
 
-    // This method should be overriden (default color is black)
+    // This method should be overridden (default color is black).
     public Color getColor() {
         return Color.BLACK;
     }
 
-    // This method should be overriden (default display is "?")
+    // This method should be overridden (default display is "?").
     public String toString() {
         return "?";
     }
 
-    // This prevents critters from trying to redefine the definition of
-    // object equality, which is important for the simulator to work properly.
+    // This prevents critters from redefining the definition of object equality, which is essential for the simulator to work correctly.
     public final boolean equals(Object other) {
         return this == other;
     }

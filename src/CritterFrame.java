@@ -1,6 +1,6 @@
-// Class CritterFrame provides the user interface for a simple simulation
-// program.
+// Class CritterFrame provides the user interface for a simple simulation program.
 
+// Import Java Packages
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,18 +17,17 @@ public class CritterFrame extends JFrame {
     private static boolean created;
     
     public CritterFrame(int width, int height) {
-        // this prevents someone from trying to create their own copy of
-        // the GUI components
+        // This prevents someone from trying to create their own copy of the GUI components.
         if (created)
             throw new RuntimeException("Only one world allowed");
         created = true;
 
-        // create frame and model
+        // Create frame and model.
         setTitle("CSE142 critter simulation");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         myModel = new CritterModel(width, height);
 
-        // set up critter picture panel
+        // Set up critter picture panel.
         myPicture = new CritterPanel(myModel);
         add(myPicture, BorderLayout.CENTER);
 
@@ -36,13 +35,13 @@ public class CritterFrame extends JFrame {
 
         constructSouth();
 
-        // initially it has not started
+        // Initially it has not started
         started = false;
     }
 
-    // construct the controls and label for the southern panel
+    // Construct the controls and label for the southern panel.
     private void constructSouth() {
-        // add timer controls to the south
+        // Add timer controls to the south.
         JPanel p = new JPanel();
 
         final JSlider slider = new JSlider();
@@ -79,7 +78,7 @@ public class CritterFrame extends JFrame {
         });
         p.add(b3);
         
-        // add debug button
+        // Add debug button.
         JButton b4 = new JButton("debug");
         b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +88,7 @@ public class CritterFrame extends JFrame {
         });
         p.add(b4);
 
-        // add 100 button
+        // Add 100 button.
         JButton b5 = new JButton("next 100");
         b5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -101,13 +100,13 @@ public class CritterFrame extends JFrame {
         add(p, BorderLayout.SOUTH);
     }
 
-    // starts the simulation...assumes all critters have already been added
+    // Starts the simulation...assumes all critters have already been added.
     public void start() {
-        // don't let anyone start a second time and remember if we have started
+        // Don't let anyone start a second time and remember if we have started.
         if (started) {
             return;
         }
-        // if they didn't add any critters, then nothing to do
+        // If they didn't add any critters, then nothing to do
         if (myModel.getCounts().isEmpty()) {
             System.out.println("nothing to simulate--no critters");
             return;
@@ -119,7 +118,7 @@ public class CritterFrame extends JFrame {
         setVisible(true);
     }
 
-    // add right-hand column showing how many of each critter are alive
+    // Add right-hand column showing how many of each critter are alive.
     private void addClassCounts() {
         Set<Map.Entry<String, Integer>> entries = myModel.getCounts();
         JPanel p = new JPanel(new GridLayout(entries.size() + 1, 1));
@@ -129,7 +128,7 @@ public class CritterFrame extends JFrame {
             p.add(counts[i]);
         }
 
-        // add simulation count
+        // Add simulation count
         countButton = new JButton();
         countButton.setForeground(Color.BLUE);
         p.add(countButton);
@@ -159,21 +158,19 @@ public class CritterFrame extends JFrame {
         countButton.setText(s);
     }
 
-    // add a certain number of critters of a particular class to the simulation
+    // Add a certain number of critters of a particular class to the simulation.
     public void add(int number, Class<? extends Critter> c) {
-        // don't let anyone add critters after simulation starts
+        // Don't let anyone add critters after simulation starts
         if (started) {
             return;
         }
-        // temporarily turning on started flag prevents critter constructors
-        // from calling add
+        // Temporarily turning on started flag prevents critter constructors from calling add.
         started = true;
         myModel.add(number, c);
         started = false;
     }
 
-    // post: creates a timer that calls the model's update
-    //       method and repaints the display
+    // Post: creates a timer that calls the model's update method and repaints the display.
     private void addTimer() {
         ActionListener updater = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -184,14 +181,14 @@ public class CritterFrame extends JFrame {
         myTimer.setCoalesce(true);
     }
 
-    // one step of the simulation
+    // One step of the simulation.
     private void doOneStep() {
         myModel.update();
         setCounts();
         myPicture.repaint();
     }
 
-    // advance the simulation until step % n is 0
+    // Advance the simulation until step % n is 0.
     private void multistep(int n) {
         myTimer.stop();
         do {
